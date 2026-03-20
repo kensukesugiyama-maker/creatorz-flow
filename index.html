@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CREATOR'ZZ 入会フロー</title>
+<style>
+  :root {
+    --navy: #1a1a2e;
+    --navy-light: #16213e;
+    --accent: #4fc3f7;
+    --accent2: #e94560;
+    --white: #ffffff;
+    --bg: #f7f8fc;
+    --text: #2c2c3a;
+    --text-light: #7a7a8e;
+    --card: #ffffff;
+    --border: #e8e8f0;
+    --sales: #ff7043;
+    --manager: #1565c0;
+    --shift: #0288d1;
+    --admin: #e94560;
+    --teacher: #f57c00;
+    --auto: #00897b;
+    --student: #78909c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #1b2a4a 100%);
+    color: var(--white); text-align: center; padding: 48px 24px 28px;
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 36px; background: var(--bg);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .hero h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: .03em; margin-bottom: 6px; }
+  .hero p { font-size: .85rem; opacity: .65; }
+
+  /* ========== TAB SWITCHER ========== */
+  .tab-bar {
+    display: flex; justify-content: center; gap: 8px;
+    background: var(--bg);
+    padding: 28px 20px 20px;
+  }
+  .tab-btn {
+    flex: 1; max-width: 340px;
+    padding: 20px 24px; font-size: 1.05rem; font-weight: 800;
+    border: 2px solid var(--border); cursor: pointer; border-radius: 16px;
+    transition: all .25s ease; position: relative;
+    color: var(--text-light); background: var(--card);
+    letter-spacing: .03em;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .tab-btn:hover { border-color: var(--accent); color: var(--text); }
+  .tab-btn.active {
+    color: var(--white); background: var(--navy);
+    border-color: var(--navy);
+    box-shadow: 0 4px 16px rgba(26,26,46,.25);
+  }
+  .tab-btn .tab-icon { font-size: 1.3rem; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 8px 20px 80px; }
+  .section { margin-bottom: 44px; }
+  .section-head { text-align: center; margin-bottom: 24px; }
+  .section-title { font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+  .section-sub { font-size: .82rem; color: var(--text-light); margin-top: 2px; }
+
+  /* ========== SHARED: Badge ========== */
+  .badge {
+    display: inline-block; font-size: .68rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px; color: #fff; white-space: nowrap;
+    vertical-align: middle;
+  }
+  .b-sales { background: var(--sales); }
+  .b-mgr { background: var(--manager); }
+  .b-shift { background: var(--shift); }
+  .b-admin { background: var(--admin); }
+  .b-teacher { background: var(--teacher); }
+  .b-auto { background: var(--auto); }
+  .b-student { background: var(--student); }
+
+  /* ========== SHARED: Timeline ========== */
+  .timeline {
+    display: flex; align-items: flex-start; justify-content: center;
+    position: relative; padding: 8px 0 0;
+  }
+  .timeline::before {
+    content: ''; position: absolute; top: 28px; left: 6%; right: 6%;
+    height: 3px; border-radius: 2px; z-index: 0;
+    background: linear-gradient(to right, var(--navy), var(--accent), #2e7d32);
+  }
+  .timeline-staff::before {
+    background: linear-gradient(to right, var(--sales), var(--sales), var(--manager), var(--manager), var(--accent), #2e7d32);
+  }
+  .tl-item {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; flex: 1; position: relative; z-index: 1;
+  }
+  .tl-dot {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    border: 3px solid var(--bg); color: #fff;
+  }
+  .tl-label { margin-top: 8px; font-size: .74rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .tl-time { font-size: .68rem; color: var(--accent2); font-weight: 600; margin-top: 2px; }
+  .tl-who { margin-top: 3px; }
+
+  /* ========== SHARED: Cycle ========== */
+  .cycle-container {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 16px;
+  }
+  .cycle-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; flex-wrap: wrap;
+  }
+  .cy-step {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; width: 125px;
+  }
+  .cy-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  }
+  .cy-name { font-size: .8rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .cy-where { font-size: .68rem; color: var(--text-light); margin-top: 2px; }
+  .cy-who { margin-top: 3px; }
+  .cy-arrow { color: #b0b4c0; font-size: 1.1rem; flex-shrink: 0; }
+  .cycle-repeat {
+    text-align: center; margin-top: 12px;
+    font-size: .78rem; color: var(--accent2); font-weight: 700;
+  }
+
+  /* ========================================
+     STUDENT TAB STYLES
+     ======================================== */
+  .section-num {
+    display: inline-block; width: 30px; height: 30px;
+    background: var(--navy); color: var(--white);
+    font-size: .78rem; font-weight: 800; border-radius: 50%;
+    line-height: 30px; text-align: center; margin-bottom: 6px;
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step-item { display: flex; gap: 16px; align-items: flex-start; }
+  .step-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 44px; }
+  .step-num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--navy); color: var(--white);
+    font-size: .8rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+  .step-line { width: 2px; flex: 1; min-height: 20px; background: linear-gradient(to bottom, var(--navy), #c0c4d0); }
+  .step-item:last-child .step-line { display: none; }
+  .step-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 20px; flex: 1; margin-bottom: 10px;
+  }
+  .step-card h4 { font-size: .92rem; font-weight: 700; margin-bottom: 4px; }
+  .step-card p { font-size: .82rem; color: var(--text-light); }
+  .step-tool {
+    display: inline-block; margin-top: 6px; font-size: .72rem;
+    font-weight: 700; padding: 2px 10px; border-radius: 4px;
+  }
+  .tool-line { background: #e8f5e9; color: #2e7d32; }
+  .tool-discord { background: #ede7f6; color: #5e35b1; }
+  .tool-wisdom { background: #e3f2fd; color: #1565c0; }
+
+  .class-hero {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 24px; text-align: center;
+    margin-bottom: 16px;
+  }
+  .class-hero-num { font-size: 2.4rem; font-weight: 800; color: var(--navy); line-height: 1; }
+  .class-hero-label { font-size: .85rem; color: var(--text-light); margin-top: 4px; }
+  .class-hero-desc {
+    font-size: .88rem; color: var(--text); margin-top: 12px;
+    max-width: 500px; margin-left: auto; margin-right: auto;
+  }
+  .class-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .cb-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 14px; text-align: center;
+  }
+  .cb-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .cb-card h5 { font-size: .85rem; font-weight: 700; margin-bottom: 4px; color: var(--navy); }
+  .cb-card p { font-size: .74rem; color: var(--text-light); line-height: 1.5; }
+  .class-events {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px 20px;
+  }
+  .class-events h4 {
+    font-size: .95rem; font-weight: 700; color: var(--navy);
+    margin-bottom: 14px; text-align: center;
+  }
+  .event-list { display: flex; flex-direction: column; gap: 10px; }
+  .event-item {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg); border-radius: 10px; padding: 14px 16px;
+  }
+  .event-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .event-text h5 { font-size: .85rem; font-weight: 700; margin-bottom: 2px; }
+  .event-text p { font-size: .74rem; color: var(--text-light); line-height: 1.4; }
+  .event-freq {
+    margin-left: auto; font-size: .68rem; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px; flex-shrink: 0;
+    background: #e3f2fd; color: #1565c0;
+  }
+  .cycle-tip {
+    text-align: center; margin-top: 16px;
+    background: #ede7f6; border-radius: 10px; padding: 14px 16px;
+  }
+  .cycle-tip-title { font-size: .92rem; font-weight: 700; color: #5e35b1; margin-bottom: 4px; }
+  .cycle-tip-desc { font-size: .8rem; color: var(--text-light); line-height: 1.5; }
+  .daily-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .daily-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 16px; text-align: center;
+  }
+  .daily-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .daily-card h4 { font-size: .9rem; font-weight: 700; margin-bottom: 4px; }
+  .daily-card p { font-size: .78rem; color: var(--text-light); line-height: 1.5; }
+  .daily-freq {
+    display: inline-block; margin-top: 8px; font-size: .7rem; font-weight: 700;
+    background: #fff3e0; color: #e65100; padding: 2px 10px; border-radius: 4px;
+  }
+  .discord-map {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;
+  }
+  .dm-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .dm-icon {
+    width: 36px; height: 36px; border-radius: 8px; background: #ede7f6;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .dm-text h5 { font-size: .82rem; font-weight: 700; margin-bottom: 2px; }
+  .dm-text p { font-size: .72rem; color: var(--text-light); line-height: 1.4; }
+  .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sp-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 16px; text-align: center;
+  }
+  .sp-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin: 0 auto 10px;
+  }
+  .sp-card h4 { font-size: .88rem; font-weight: 700; margin-bottom: 4px; }
+  .sp-card p { font-size: .76rem; color: var(--text-light); line-height: 1.5; }
+  .sp-how {
+    display: inline-block; margin-top: 8px; font-size: .7rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 4px;
+  }
+  .footer-msg {
+    text-align: center;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: var(--white); border-radius: 16px; padding: 32px 24px;
+  }
+  .footer-msg h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .footer-msg p { font-size: .82rem; opacity: .75; max-width: 460px; margin: 0 auto; }
+
+  /* ========================================
+     STAFF TAB STYLES
+     ======================================== */
+  .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .role-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 12px; text-align: center;
+  }
+  .role-card .badge { font-size: .75rem; padding: 3px 10px; margin-bottom: 6px; }
+  .role-card h5 { font-size: .82rem; font-weight: 700; margin-bottom: 2px; }
+  .role-card p { font-size: .7rem; color: var(--text-light); line-height: 1.4; }
+  .phase-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .phase-num {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .phase-header h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+  .phase-header .phase-desc { font-size: .78rem; color: var(--text-light); }
+
+  .step-list { display: flex; flex-direction: column; gap: 0; }
+  .sl-item { display: flex; gap: 14px; align-items: flex-start; }
+  .sl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 40px; }
+  .sl-id {
+    width: 32px; height: 32px; border-radius: 50%;
+    font-size: .7rem; font-weight: 800; color: #fff;
+    display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+  .sl-line { width: 2px; flex: 1; min-height: 16px; }
+  .sl-item:last-child .sl-line { display: none; }
+  .sl-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; flex: 1; margin-bottom: 8px;
+  }
+  .sl-card h4 { font-size: .88rem; font-weight: 700; margin-bottom: 3px; }
+  .sl-card p { font-size: .78rem; color: var(--text-light); }
+  .sl-meta { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+  .sl-deadline {
+    font-size: .68rem; font-weight: 700;
+    background: #fce4ec; color: var(--accent2); padding: 1px 8px; border-radius: 4px;
+  }
+  .handoff {
+    background: linear-gradient(135deg, #fff3e0, #fce4ec);
+    border: 1px solid #ffccbc; border-radius: 12px;
+    padding: 16px 20px; text-align: center; margin: 8px 0 0;
+  }
+  .handoff h4 { font-size: .9rem; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .handoff p { font-size: .78rem; color: var(--text-light); }
+  .checkpoint {
+    background: #fff3e0; border: 1px solid #ffe0b2;
+    border-radius: 10px; padding: 12px 16px; margin: 8px 0 0;
+    text-align: center; font-size: .8rem; font-weight: 600; color: #e65100;
+  }
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .mon-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; text-align: center;
+  }
+  .mon-card h5 { font-size: .85rem; font-weight: 700; margin-bottom: 4px; color: var(--navy); }
+  .mon-card p { font-size: .75rem; color: var(--text-light); line-height: 1.4; }
+  .mon-trigger {
+    display: inline-block; margin-top: 6px; font-size: .68rem; font-weight: 700;
+    background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 4px;
+  }
+  .outcome-list { display: flex; flex-direction: column; gap: 12px; }
+  .outcome-card {
+    border-radius: 12px; padding: 18px 20px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .outcome-card.good { background: #e8f5e9; border: 1px solid #a5d6a7; }
+  .outcome-card.warn { background: #fff8e1; border: 1px solid #ffe082; }
+  .outcome-card.danger { background: #fce4ec; border: 1px solid #ef9a9a; }
+  .oc-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .oc-body { flex: 1; }
+  .oc-body h4 { font-size: .92rem; font-weight: 700; margin-bottom: 6px; }
+  .outcome-card.good h4 { color: #2e7d32; }
+  .outcome-card.warn h4 { color: #f57f17; }
+  .outcome-card.danger h4 { color: #c62828; }
+  .oc-body p { font-size: .78rem; color: #555; line-height: 1.6; }
+  .oc-flow { display: flex; align-items: center; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .oc-flow-arrow { color: #aaa; font-size: .8rem; }
+  .oc-flow-step {
+    font-size: .75rem; font-weight: 600; color: var(--text);
+    background: rgba(255,255,255,.7); padding: 2px 8px; border-radius: 4px;
+  }
+  .oc-deadline {
+    display: inline-block; margin-top: 8px; font-size: .68rem; font-weight: 700;
+    background: rgba(255,255,255,.6); color: var(--accent2);
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .inquiry-source { display: flex; gap: 12px; margin-bottom: 16px; }
+  .inq-src {
+    flex: 1; background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; text-align: center;
+  }
+  .inq-src-icon { font-size: 1.4rem; margin-bottom: 6px; }
+  .inq-src h5 { font-size: .85rem; font-weight: 700; margin-bottom: 2px; }
+  .inq-src p { font-size: .72rem; color: var(--text-light); }
+  .routing-table {
+    width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 4px;
+  }
+  .routing-table th {
+    background: var(--navy); color: #fff; font-weight: 600;
+    text-align: left; padding: 10px 14px;
+  }
+  .routing-table th:first-child { border-radius: 8px 0 0 0; }
+  .routing-table th:last-child { border-radius: 0 8px 0 0; }
+  .routing-table td {
+    padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top;
+  }
+  .routing-table tr:last-child td { border-bottom: none; }
+  .routing-table tr:nth-child(even) td { background: #fafafa; }
+  .escalation-note {
+    background: #fce4ec; border: 1px solid #ef9a9a;
+    border-radius: 10px; padding: 14px 18px; margin-top: 14px;
+  }
+  .escalation-note h5 { font-size: .85rem; font-weight: 700; color: #c62828; margin-bottom: 6px; }
+  .escalation-note p { font-size: .78rem; color: #555; line-height: 1.5; }
+  .escalation-note ul { margin: 6px 0 0 16px; font-size: .78rem; color: #555; line-height: 1.6; }
+
+  /* ========== FLOWCHART ========== */
+  .fc-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px 20px; overflow-x: auto;
+  }
+  .fc {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+    min-width: 320px;
+  }
+  .fc-node {
+    display: flex; align-items: center; gap: 10px;
+    border-radius: 12px; padding: 12px 18px;
+    font-size: .82rem; font-weight: 600; color: var(--text);
+    position: relative; width: 100%; max-width: 520px;
+    border: 1px solid var(--border); background: #fff;
+  }
+  .fc-node-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0; color: #fff;
+  }
+  .fc-node-text { flex: 1; }
+  .fc-node-label { font-size: .82rem; font-weight: 700; }
+  .fc-node-sub { font-size: .68rem; color: var(--text-light); font-weight: 400; }
+  .fc-node-badge { flex-shrink: 0; }
+
+  .fc-arrow {
+    display: flex; flex-direction: column; align-items: center;
+    color: #bbb; font-size: .7rem; line-height: 1;
+  }
+  .fc-arrow-line { width: 2px; height: 16px; background: #ccc; }
+  .fc-arrow-head { font-size: .65rem; color: #bbb; }
+
+  .fc-phase-label {
+    display: inline-block; font-size: .65rem; font-weight: 800;
+    letter-spacing: .08em; color: #fff; padding: 3px 14px;
+    border-radius: 20px; margin-bottom: 4px;
+  }
+
+  .fc-gate {
+    background: #fff3e0; border: 2px dashed #ffb74d;
+    border-radius: 12px; padding: 10px 18px;
+    font-size: .78rem; font-weight: 700; color: #e65100;
+    text-align: center; width: 100%; max-width: 520px;
+  }
+
+  .fc-branch {
+    display: flex; gap: 12px; width: 100%; max-width: 600px;
+    justify-content: center;
+  }
+  .fc-branch-path {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .fc-branch-node {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; border-radius: 12px; padding: 14px 12px;
+    font-size: .78rem; font-weight: 600; width: 100%;
+    border: 1px solid var(--border);
+  }
+  .fc-branch-node .fc-node-label { font-size: .78rem; margin-bottom: 2px; }
+  .fc-branch-icon {
+    font-size: 1.2rem; margin-bottom: 4px;
+  }
+
+  /* Inquiry routes in flowchart */
+  .fc-inq-routes {
+    width: 100%; max-width: 520px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .fc-inq-route {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px;
+  }
+  .fc-inq-route-danger {
+    background: #fce4ec; border-color: #ef9a9a;
+  }
+  .fc-inq-route-label {
+    flex: 1; font-size: .78rem; font-weight: 700; color: var(--text);
+    min-width: 0;
+  }
+  .fc-inq-route-label span {
+    display: block; font-size: .65rem; font-weight: 400; color: var(--text-light);
+    line-height: 1.3;
+  }
+  .fc-inq-route-arrow {
+    color: #bbb; font-size: .9rem; flex-shrink: 0; font-weight: 700;
+  }
+  .fc-inq-route-dest {
+    display: flex; align-items: center; gap: 4px;
+    flex-shrink: 0; flex-wrap: wrap;
+  }
+  .fc-inq-action {
+    font-size: .7rem; color: var(--text-light); font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 640px) {
+    .hero { padding: 36px 16px 20px; }
+    .hero h1 { font-size: 1.25rem; }
+    .tab-bar { padding: 20px 14px 16px; gap: 6px; }
+    .tab-btn { padding: 16px 16px; font-size: .92rem; }
+    .tab-btn .tab-icon { font-size: 1.15rem; }
+    .container { padding: 8px 14px 60px; }
+    .roles-grid { grid-template-columns: repeat(2, 1fr); }
+    .timeline { flex-wrap: wrap; gap: 6px; }
+    .timeline::before { display: none; }
+    .tl-item { width: calc(33.3% - 6px); }
+    .tl-dot { width: 36px; height: 36px; font-size: .9rem; }
+    .tl-label { font-size: .68rem; }
+    .cycle-row { flex-direction: column; gap: 4px; }
+    .cy-step { width: 100%; flex-direction: row; gap: 10px; text-align: left; }
+    .cy-icon { width: 38px; height: 38px; font-size: 1rem; flex-shrink: 0; }
+    .cy-arrow { transform: rotate(90deg); }
+    .monitor-grid { grid-template-columns: 1fr; }
+    .inquiry-source { flex-direction: column; }
+    .routing-table { font-size: .72rem; }
+    .routing-table th, .routing-table td { padding: 8px 10px; }
+    .daily-grid { grid-template-columns: 1fr; }
+    .support-grid { grid-template-columns: 1fr; }
+    .discord-map { grid-template-columns: 1fr; }
+    .class-benefits { grid-template-columns: 1fr; }
+    .event-item { flex-wrap: wrap; }
+    .event-freq { margin-left: 0; margin-top: 4px; }
+    .fc-node { max-width: 100%; }
+    .fc-branch { flex-direction: column; max-width: 100%; gap: 8px; }
+    .fc-branch-path { width: 100%; }
+    .fc-node-badge { display: flex; flex-wrap: wrap; gap: 2px; }
+    .fc-inq-routes { max-width: 100%; }
+    .fc-inq-route { flex-wrap: wrap; }
+    .fc-inq-route-label { width: 100%; margin-bottom: 2px; }
+    .fc-inq-route-arrow { display: none; }
+    .fc-inq-route-dest { width: 100%; padding-left: 8px; border-left: 3px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+  <h1>CREATOR'ZZ 入会フロー</h1>
+  <p>入会から卒業まで、すべての流れをまとめた資料</p>
+</div>
+
+<!-- ========== TAB BAR ========== -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('student')" id="tab-student">
+    <span class="tab-icon">🎓</span>受講生向け
+  </button>
+  <button class="tab-btn" onclick="switchTab('staff')" id="tab-staff">
+    <span class="tab-icon">🏢</span>スタッフ向け
+  </button>
+</div>
+
+<!-- ============================================================
+     TAB 1: 受講生向け
+     ============================================================ -->
+<div class="tab-panel active" id="panel-student">
+<div class="container">
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">1</div>
+      <div class="section-title">全体の流れ</div>
+      <div class="section-sub">入会から修了まで、約3ヶ月のプログラムです</div>
+    </div>
+    <div class="timeline" style="padding-top:12px;">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--navy);color:#fff;">📝</div>
+        <div class="tl-label">入会手続き</div>
+        <div class="tl-time">契約・支払い</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--navy);color:#fff;">📱</div>
+        <div class="tl-label">LINE登録<br>アンケート</div>
+        <div class="tl-time">入会後すぐ</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent);color:var(--navy);">👥</div>
+        <div class="tl-label">Discord参加<br>クラス顔合わせ</div>
+        <div class="tl-time">〜1週間以内</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent2);color:#fff;">🔄</div>
+        <div class="tl-label">学習サイクル</div>
+        <div class="tl-time">繰り返し</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent);color:var(--navy);">🎨</div>
+        <div class="tl-label">最終成果物</div>
+        <div class="tl-time">仕上げ</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#2e7d32;color:#fff;">🎓</div>
+        <div class="tl-label">修了・卒業</div>
+        <div class="tl-time">GOAL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">2</div>
+      <div class="section-title">入会したら、まずやること</div>
+      <div class="section-sub">この順番で進めていきます</div>
+    </div>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+        <div class="step-card">
+          <h4>入会者限定の公式LINEに登録する</h4>
+          <p>担当マネージャーから登録URLをお送りします。こちらのLINEが今後の連絡窓口になりますので、まず登録をお願いします。</p>
+          <span class="step-tool tool-line">公式LINE</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+        <div class="step-card">
+          <h4>初回アンケートに回答する</h4>
+          <p>LINE登録後、アンケートが届きます。受講の目的やスキルレベルなどをお答えください。この回答をもとにクラスを決定します。</p>
+          <span class="step-tool tool-line">公式LINE</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+        <div class="step-card">
+          <h4>Discordに参加する</h4>
+          <p>クラスが決まったら、招待リンクをお送りします。Discordに参加して、あなたのクラスチャンネルに入ってください。質問・課題提出・仲間との交流、すべてDiscordで行います。</p>
+          <span class="step-tool tool-discord">Discord</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+        <div class="step-card">
+          <h4>クラス顔合わせに参加する</h4>
+          <p>受講開始日から1週間以内にクラス顔合わせを行います。同じクラスの仲間やマネージャーと初めましての会です。日程は担当マネージャーが調整します。</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-left"><div class="step-num">5</div></div>
+        <div class="step-card">
+          <h4>Wisdombaseにログインして学習開始！</h4>
+          <p>学習動画はすべてWisdombase（学習プラットフォーム）で視聴します。顔合わせが終わったら、さっそく最初の動画から始めましょう。</p>
+          <span class="step-tool tool-wisdom">Wisdombase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">3</div>
+      <div class="section-title">クラスについて</div>
+      <div class="section-sub">少人数のクラスで、仲間と一緒に学びます</div>
+    </div>
+    <div class="class-hero">
+      <div class="class-hero-num">5〜8人</div>
+      <div class="class-hero-label">1クラスの人数</div>
+      <div class="class-hero-desc">アンケートの結果をもとに、あなたに合ったクラスに配属されます。<br>同じ時期に入会した仲間と3ヶ月間、一緒に学んでいきます。</div>
+    </div>
+    <div class="class-benefits">
+      <div class="cb-card">
+        <div class="cb-icon">🤝</div>
+        <h5>仲間と切磋琢磨</h5>
+        <p>同じ目標を持つ同期の仲間と、お互いの作品を見て刺激を受けながら成長できます</p>
+      </div>
+      <div class="cb-card">
+        <div class="cb-icon">🔥</div>
+        <h5>モチベーション維持</h5>
+        <p>一人だと続かないことも、仲間がいるから頑張れる。励まし合いながら学習を継続できます</p>
+      </div>
+      <div class="cb-card">
+        <div class="cb-icon">💪</div>
+        <h5>マネージャーがサポート</h5>
+        <p>クラスごとに担当マネージャーがつきます。進捗の相談や困りごとに寄り添います</p>
+      </div>
+    </div>
+    <div class="class-events">
+      <h4>クラスのイベント</h4>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-icon" style="background:#e3f2fd;">👥</div>
+          <div class="event-text">
+            <h5>クラス顔合わせ</h5>
+            <p>入会後最初のイベント。クラスメンバーと自己紹介し合います</p>
+          </div>
+          <div class="event-freq">入会時</div>
+        </div>
+        <div class="event-item">
+          <div class="event-icon" style="background:#fff3e0;">📅</div>
+          <div class="event-text">
+            <h5>クラス会</h5>
+            <p>クラスメンバーで集まり、進捗の共有や近況報告を行います</p>
+          </div>
+          <div class="event-freq">毎週</div>
+        </div>
+        <div class="event-item">
+          <div class="event-icon" style="background:#e8f5e9;">💻</div>
+          <div class="event-text">
+            <h5>作業会</h5>
+            <p>みんなで一緒に作業する時間。一人では集中しづらいときにも最適です</p>
+          </div>
+          <div class="event-freq">毎週</div>
+        </div>
+        <div class="event-item">
+          <div class="event-icon" style="background:#fce4ec;">⚡</div>
+          <div class="event-text">
+            <h5>クラス対抗イベント</h5>
+            <p>他のクラスと競い合う特別イベント。楽しみながらスキルを磨けます</p>
+          </div>
+          <div class="event-freq">不定期</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">4</div>
+      <div class="section-title">学習の進め方</div>
+      <div class="section-sub">この4ステップを繰り返して、スキルを身につけます</div>
+    </div>
+    <div class="cycle-container">
+      <div class="cycle-row">
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#e3f2fd;">🎬</div>
+          <div>
+            <div class="cy-name">動画を視聴</div>
+            <div class="cy-where">Wisdombase</div>
+          </div>
+        </div>
+        <div class="cy-arrow">▶</div>
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#fff3e0;">✏️</div>
+          <div>
+            <div class="cy-name">ワーク・課題を提出</div>
+            <div class="cy-where">Discord 課題提出チャンネル</div>
+          </div>
+        </div>
+        <div class="cy-arrow">▶</div>
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#fce4ec;">📝</div>
+          <div>
+            <div class="cy-name">講師から添削</div>
+            <div class="cy-where">フィードバックが届きます</div>
+          </div>
+        </div>
+        <div class="cy-arrow">▶</div>
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#e8f5e9;">🚀</div>
+          <div>
+            <div class="cy-name">次のステップへ</div>
+            <div class="cy-where">次の動画に進む</div>
+          </div>
+        </div>
+      </div>
+      <div class="cycle-repeat">↑ 修了まで、このサイクルを繰り返します</div>
+      <div class="cycle-tip">
+        <div class="cycle-tip-title">💡 質問はいつでもOK！</div>
+        <div class="cycle-tip-desc">動画の内容・課題の進め方・ツールの使い方など、<br>わからないことがあればDiscordの質問部屋からいつでも気軽に質問してください。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">5</div>
+      <div class="section-title">毎日の習慣にすること</div>
+      <div class="section-sub">カリキュラムと並行して、以下にも取り組みましょう</div>
+    </div>
+    <div class="daily-grid">
+      <div class="daily-card">
+        <div class="daily-icon">📱</div>
+        <h4>SNS投稿</h4>
+        <p>指定のSNSアカウントで動画を制作・投稿します。学んだことを実践するアウトプットの場です。</p>
+        <div class="daily-freq">目標: 1ヶ月で10本以上</div>
+      </div>
+      <div class="daily-card">
+        <div class="daily-icon">🔍</div>
+        <h4>リファレンス収集</h4>
+        <p>優れた作品・事例を見つけて、選んだ理由とともに提出します。目を養うトレーニングです。</p>
+        <div class="daily-freq">目標: 週5回以上</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">6</div>
+      <div class="section-title">Discordの使い方</div>
+      <div class="section-sub">目的に合わせてチャンネルを使い分けましょう</div>
+    </div>
+    <div class="discord-map">
+      <div class="dm-card">
+        <div class="dm-icon">❓</div>
+        <div class="dm-text">
+          <h5>質問部屋</h5>
+          <p>学習内容・ツールの使い方など、何でもフォームから質問を投稿できます。講師から回答が届きます。他の人の質問・回答も見られるので、みんなの学びにつながります。</p>
+        </div>
+      </div>
+      <div class="dm-card">
+        <div class="dm-icon">📤</div>
+        <div class="dm-text">
+          <h5>課題提出</h5>
+          <p>ワークや課題はこのチャンネルに提出します。講師が添削して返却します。</p>
+        </div>
+      </div>
+      <div class="dm-card">
+        <div class="dm-icon">🏠</div>
+        <div class="dm-text">
+          <h5>クラスチャンネル</h5>
+          <p>あなたのクラス専用の部屋です。クラスの連絡やイベント情報はここに届きます。</p>
+        </div>
+      </div>
+      <div class="dm-card">
+        <div class="dm-icon">💬</div>
+        <div class="dm-text">
+          <h5>雑談・交流</h5>
+          <p>受講生同士で気軽に交流できる場です。情報交換や雑談にご活用ください。</p>
+        </div>
+      </div>
+      <div class="dm-card">
+        <div class="dm-icon">📢</div>
+        <div class="dm-text">
+          <h5>お知らせ</h5>
+          <p>運営からの重要なお知らせが届きます。定期的にチェックしましょう。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">7</div>
+      <div class="section-title">困ったときは</div>
+      <div class="section-sub">基本はDiscordから。みんなの学びにもつながります。</div>
+    </div>
+    <div class="support-grid">
+      <div class="sp-card">
+        <div class="sp-icon" style="background:#ede7f6;">❓</div>
+        <h4>まずはDiscordへ</h4>
+        <p>学習内容・ツールの使い方・進め方など、迷ったらDiscordの質問部屋からフォームで質問してください。講師が回答します。他の受講生も同じ質問・回答を見ることができるので、みんなの学習効率が上がります。</p>
+        <span class="sp-how" style="background:#ede7f6;color:#5e35b1;">Discord 質問部屋</span>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon" style="background:#e8f5e9;">🔒</div>
+        <h4>契約・個人的な相談は公式LINEへ</h4>
+        <p>契約内容の確認やお支払いに関することなど、他の人に見られたくない個人的な内容は公式LINEからご連絡ください。</p>
+        <span class="sp-how" style="background:#e8f5e9;color:#2e7d32;">公式LINE</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-msg">
+    <h3>一歩ずつ、一緒に進めていきましょう</h3>
+    <p>わからないことがあっても大丈夫です。<br>担当マネージャー・講師がしっかりサポートします。<br>安心して学習を進めてください。</p>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     TAB 2: スタッフ向け
+     ============================================================ -->
+<div class="tab-panel" id="panel-staff">
+<div class="container">
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">ロール凡例</div>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <span class="badge b-sales">営業</span>
+        <h5>営業</h5>
+        <p>面談・契約・支払いを担当。完了後マネージャーへ引き継ぎ</p>
+      </div>
+      <div class="role-card" style="border:2px solid var(--shift);">
+        <span class="badge b-shift">シフトマネ</span>
+        <h5>シフトマネージャー</h5>
+        <p><strong>シフトで出勤中のマネージャー。</strong>全受講生からの問い合わせを横串で一次対応する窓口</p>
+      </div>
+      <div class="role-card" style="border:2px solid var(--manager);">
+        <span class="badge b-mgr">担当マネ</span>
+        <h5>担当マネージャー</h5>
+        <p><strong>各クラスを担当するマネージャー。</strong>担当クラスの受講生のオンボーディングから卒業まで伴走</p>
+      </div>
+      <div class="role-card">
+        <span class="badge b-admin">運営</span>
+        <h5>運営（本部）</h5>
+        <p>クラス割当・講師アサイン・解約金算出・返金判定などの最終意思決定</p>
+      </div>
+      <div class="role-card">
+        <span class="badge b-teacher">講師</span>
+        <h5>講師</h5>
+        <p>課題添削・質問回答・最終成果物の判定</p>
+      </div>
+      <div class="role-card">
+        <span class="badge b-auto">自動</span>
+        <h5>自動（LINE配信）</h5>
+        <p>LINE登録後のウェルカムメッセージ・アンケートURL送付など</p>
+      </div>
+      <div class="role-card">
+        <span class="badge b-student">入会者</span>
+        <h5>入会者 / 受講生</h5>
+        <p>LINE登録・アンケート回答・Discord参加・学習など</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">全体の流れ</div>
+    </div>
+    <div class="timeline timeline-staff" style="padding-top:12px;">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--sales);">📞</div>
+        <div class="tl-label">面談</div>
+        <div class="tl-who"><span class="badge b-sales" style="font-size:.6rem;">営業</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--sales);">📄</div>
+        <div class="tl-label">契約<br>支払い</div>
+        <div class="tl-who"><span class="badge b-sales" style="font-size:.6rem;">営業</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent2);">🤝</div>
+        <div class="tl-label">引き継ぎ</div>
+        <div class="tl-who"><span class="badge b-sales" style="font-size:.6rem;">営業</span><span style="font-size:.7rem;color:#aaa;margin:0 2px;">→</span><span class="badge b-mgr" style="font-size:.6rem;">マネ</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--manager);">📱</div>
+        <div class="tl-label">LINE<br>アンケ</div>
+        <div class="tl-who"><span class="badge b-mgr" style="font-size:.6rem;">マネ</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--admin);">👥</div>
+        <div class="tl-label">クラス<br>割当</div>
+        <div class="tl-who"><span class="badge b-admin" style="font-size:.6rem;">運営</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--manager);">💬</div>
+        <div class="tl-label">Discord<br>顔合わせ</div>
+        <div class="tl-who"><span class="badge b-mgr" style="font-size:.6rem;">マネ</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teacher);">🔄</div>
+        <div class="tl-label">学習<br>サイクル</div>
+        <div class="tl-who"><span class="badge b-teacher" style="font-size:.6rem;">講師</span><span class="badge b-mgr" style="font-size:.6rem;margin-left:2px;">マネ</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#2e7d32;">🎓</div>
+        <div class="tl-label">修了<br>or 解約</div>
+        <div class="tl-who"><span class="badge b-admin" style="font-size:.6rem;">運営</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="section">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--sales);">P1</div>
+      <div>
+        <h2>PHASE 1 - 営業フェーズ</h2>
+        <div class="phase-desc">全て営業が担当</div>
+      </div>
+    </div>
+    <div class="step-list">
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S1</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--sales),#ffab91);"></div></div>
+        <div class="sl-card">
+          <h4>面談予約 + LINEリマインド</h4>
+          <p>予約時・3日前・前日・当日・直前の各タイミングでLINEリマインドを送付</p>
+          <div class="sl-meta"><span class="badge b-sales">営業</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S2</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--sales),#ffab91);"></div></div>
+        <div class="sl-card">
+          <h4>アポ（面談）</h4>
+          <p>営業資料・トークスクリプトをもとにSPIN話法で面談を実施。即決を目指す</p>
+          <div class="sl-meta"><span class="badge b-sales">営業</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S3</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--sales),#ffab91);"></div></div>
+        <div class="sl-card">
+          <h4>契約</h4>
+          <p>顧客情報フォーム送信 → 契約書作成 → GMOサインで電子署名 → web郵便で書面送付</p>
+          <div class="sl-meta"><span class="badge b-sales">営業</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S4</div></div>
+        <div class="sl-card">
+          <h4>支払い手続き</h4>
+          <p>顧客の状況に合わせて支払い方法を選択・手続きを完了させる（銀行振込 / クレジットカード / 信販 / 自社信販 / 後払い）</p>
+          <div class="sl-meta"><span class="badge b-sales">営業</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="handoff">
+      <h4>🤝 営業 → マネージャーへ引き継ぎ</h4>
+      <p>契約・支払い完了後、マネージャーへ顧客情報を共有する</p>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="section">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--manager);">P2</div>
+      <div>
+        <h2>PHASE 2 - 入会後フェーズ</h2>
+        <div class="phase-desc">マネージャーが主担当</div>
+      </div>
+    </div>
+    <div class="step-list">
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M1</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
+        <div class="sl-card">
+          <h4>入会者限定LINEの登録案内を送付</h4>
+          <p>引き継ぎ確認後、当日中に案内メッセージを送る</p>
+          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span><span class="sl-deadline">当日中</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M2</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-card">
+          <h4>入会者がLINEに登録</h4>
+          <p>案内に従い公式LINEへ登録</p>
+          <div class="sl-meta"><span class="badge b-student">入会者</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--auto);">M3</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--auto),#80cbc4);"></div></div>
+        <div class="sl-card">
+          <h4>ウェルカムメッセージ + アンケートURL送付</h4>
+          <p>LINE登録直後に自動配信。アンケートへの回答を依頼</p>
+          <div class="sl-meta"><span class="badge b-auto">自動</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M4</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-card">
+          <h4>入会者がアンケートに回答</h4>
+          <p>目的・年齢・性別・MBTI・スキルレベルなどを回答</p>
+          <div class="sl-meta"><span class="badge b-student">入会者</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M5</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
+        <div class="sl-card">
+          <h4>支払い確認</h4>
+          <p>アンケート回答を確認後、各システムで入金・審査状況を確認（クレカ: SBP / 信販: 各社管理画面 / 振込: 入金確認）</p>
+          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="checkpoint">⚠ アンケート回答 + 支払い確認、両方が完了してから次へ進む</div>
+    <div class="step-list" style="margin-top:12px;">
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--admin);">M6</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--admin),#ef9a9a);"></div></div>
+        <div class="sl-card">
+          <h4>アンケート結果確認・クラス割り当て</h4>
+          <p>運営がアンケートをもとにクラスを決定し、マネージャーに共有</p>
+          <div class="sl-meta"><span class="badge b-admin">運営</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M7</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
+        <div class="sl-card">
+          <h4>Discord招待リンク送付</h4>
+          <p>クラス確定後、速やかに招待リンクとクラスチャンネルを案内</p>
+          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M8</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-card">
+          <h4>入会者がDiscordに参加</h4>
+          <p>招待リンクからDiscordに入り、担当クラスのチャンネルへ移動</p>
+          <div class="sl-meta"><span class="badge b-student">入会者</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M9</div></div>
+        <div class="sl-card">
+          <h4>クラス顔合わせの日程調整・実施</h4>
+          <p>参加確認後、DiscordまたはLINEで日程を調整。サービス提供開始日から1週間以内に実施</p>
+          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span><span class="sl-deadline">開始日から1週間以内</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="section">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--teacher);">P3</div>
+      <div>
+        <h2>PHASE 3 - 学習フェーズ</h2>
+        <div class="phase-desc">受講期間: 約3ヶ月 / 講師 + マネージャーが伴走</div>
+      </div>
+    </div>
+    <div class="cycle-container">
+      <div style="text-align:center;font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:14px;">学習サイクル</div>
+      <div class="cycle-row">
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#e3f2fd;">🎬</div>
+          <div>
+            <div class="cy-name">動画を視聴</div>
+            <div class="cy-who"><span class="badge b-student" style="font-size:.6rem;">受講生</span></div>
+          </div>
+        </div>
+        <div class="cy-arrow">▶</div>
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#fff3e0;">✏️</div>
+          <div>
+            <div class="cy-name">課題を提出</div>
+            <div class="cy-who"><span class="badge b-student" style="font-size:.6rem;">受講生</span></div>
+          </div>
+        </div>
+        <div class="cy-arrow">▶</div>
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#fce4ec;">📝</div>
+          <div>
+            <div class="cy-name">講師が添削</div>
+            <div class="cy-who"><span class="badge b-teacher" style="font-size:.6rem;">講師</span></div>
+          </div>
+        </div>
+        <div class="cy-arrow">▶</div>
+        <div class="cy-step">
+          <div class="cy-icon" style="background:#e8f5e9;">🚀</div>
+          <div>
+            <div class="cy-name">次のステップへ</div>
+            <div class="cy-who"><span class="badge b-student" style="font-size:.6rem;">受講生</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cycle-repeat">↑ 修了まで繰り返し</div>
+    </div>
+    <div class="monitor-grid">
+      <div class="mon-card">
+        <h5>進捗モニタリング</h5>
+        <p>担当クラスの受講生の進捗状況を定期確認</p>
+        <div style="margin-top:6px;"><span class="badge b-mgr" style="font-size:.65rem;">担当マネ</span></div>
+        <div class="mon-trigger">最低 週1回</div>
+      </div>
+      <div class="mon-card">
+        <h5>声がけトリガー</h5>
+        <p>以下に該当したら個別DMで状況確認</p>
+        <div style="margin-top:6px;"><span class="badge b-mgr" style="font-size:.65rem;">担当マネ</span></div>
+        <div class="mon-trigger">2週間 未進捗</div>
+        <div class="mon-trigger">1ヶ月 イベント不参加</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4: 問い合わせ -->
+  <div class="section">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--shift);">P4</div>
+      <div>
+        <h2>PHASE 4 - 問い合わせ対応フロー</h2>
+        <div class="phase-desc">受講生からの問い合わせの受付・対応・エスカレーション</div>
+      </div>
+    </div>
+    <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:16px 20px;margin-bottom:16px;">
+      <div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:6px;">基本原則</div>
+      <p style="font-size:.82rem;color:var(--text);line-height:1.7;">
+        すべての問い合わせは、まず<span class="badge b-shift" style="font-size:.65rem;">シフトマネ</span>が一次対応として受け付けます。<br>
+        シフトマネが内容を判断し、自分で回答できるものはその場で対応。それ以外は適切な担当者に引き継ぎます。
+      </p>
+    </div>
+    <div class="inquiry-source">
+      <div class="inq-src">
+        <div class="inq-src-icon">💬</div>
+        <h5>Discord（質問部屋）</h5>
+        <p>学習内容・ツールの使い方など<br>受講生がフォームから質問を投稿</p>
+      </div>
+      <div class="inq-src">
+        <div class="inq-src-icon">📱</div>
+        <h5>公式LINE</h5>
+        <p>契約・支払い・個人的な相談など<br>他の人に見られたくない内容</p>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;">
+      <div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:12px;">問い合わせの振り分けルール</div>
+      <table class="routing-table">
+        <tr>
+          <th>問い合わせの内容</th>
+          <th>一次対応</th>
+          <th>振り分け先</th>
+        </tr>
+        <tr>
+          <td>ツール操作・手順・スケジュールなど汎用的な内容</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td>そのまま回答して完了</td>
+        </tr>
+        <tr>
+          <td>クラス会・作業会など担当クラス固有の内容</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td><span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span> へ申し送り</td>
+        </tr>
+        <tr>
+          <td>進捗・モチベーションなど個別の学習状況</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td><span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span> が対応</td>
+        </tr>
+        <tr>
+          <td>専門的な学習内容・課題添削</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td><span class="badge b-teacher" style="font-size:.62rem;">講師</span> にエスカレーション</td>
+        </tr>
+        <tr>
+          <td>AIツール関連（FAQに記載なし）</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td><span class="badge b-admin" style="font-size:.62rem;">運営</span> に確認 → <span class="badge b-teacher" style="font-size:.62rem;">講師</span> に確認</td>
+        </tr>
+        <tr>
+          <td>料金 / 契約 / クレーム / トラブル</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td><span class="badge b-admin" style="font-size:.62rem;">運営</span> にエスカレーション</td>
+        </tr>
+        <tr>
+          <td>判断に迷う場合</td>
+          <td><span class="badge b-shift" style="font-size:.62rem;">シフトマネ</span></td>
+          <td><span class="badge b-admin" style="font-size:.62rem;">運営</span> に確認</td>
+        </tr>
+      </table>
+    </div>
+    <div class="escalation-note">
+      <h5>運営にエスカレーション必須（マネが自己判断してはいけないもの）</h5>
+      <ul>
+        <li>料金トラブル・返金に関する判断</li>
+        <li>契約変更・中途解約の交渉</li>
+        <li>受講生からのクレーム・トラブル全般</li>
+        <li>判断に迷う問い合わせ</li>
+      </ul>
+      <p style="margin-top:8px;font-weight:600;">原則: 迷ったら回答せずエスカレーション</p>
+    </div>
+  </div>
+
+  <!-- PHASE 5: 修了・解約 -->
+  <div class="section">
+    <div class="phase-header">
+      <div class="phase-num" style="background:#2e7d32;">P5</div>
+      <div>
+        <h2>PHASE 5 - 修了・卒業 / 解約・返金</h2>
+        <div class="phase-desc">受講生の状態に応じて分岐</div>
+      </div>
+    </div>
+    <div class="outcome-list">
+      <div class="outcome-card good">
+        <div class="oc-icon" style="background:#c8e6c9;">🎓</div>
+        <div class="oc-body">
+          <h4>修了 → 卒業</h4>
+          <div class="oc-flow">
+            <span class="badge b-teacher" style="font-size:.62rem;">講師</span>
+            <span class="oc-flow-step">最終成果物OK</span>
+            <span class="oc-flow-arrow">→</span>
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">修了通知を発行</span>
+            <span class="oc-flow-arrow">→</span>
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">運営に報告 / シート「卒業」更新 / LINEタグ変更</span>
+          </div>
+        </div>
+      </div>
+      <div class="outcome-card warn">
+        <div class="oc-icon" style="background:#fff9c4;">⚠️</div>
+        <div class="oc-body">
+          <h4>停滞・モチベ低下 → フォロー</h4>
+          <div class="oc-flow">
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">サイン検知 → 個別DMでヒアリング</span>
+          </div>
+          <p style="margin-top:8px;">
+            <strong>学習面の悩み</strong> → <span class="badge b-teacher" style="font-size:.62rem;">講師</span> にエスカレーション<br>
+            <strong>環境・時間の問題</strong> → <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span> が学習ペース調整を提案<br>
+            <strong>解約・返金の意思</strong> → 受付のみ行い <span class="badge b-admin" style="font-size:.62rem;">運営</span> に即エスカレーション
+          </p>
+        </div>
+      </div>
+      <div class="outcome-card danger">
+        <div class="oc-icon" style="background:#ffcdd2;">📋</div>
+        <div class="oc-body">
+          <h4>解約</h4>
+          <div class="oc-flow">
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">受付・初回返信</span>
+            <span class="oc-flow-arrow">→</span>
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">状況確認・運営に報告</span>
+            <span class="oc-flow-arrow">→</span>
+            <span class="badge b-admin" style="font-size:.62rem;">運営</span>
+            <span class="oc-flow-step">解約金算出・提示・処理</span>
+          </div>
+          <p style="margin-top:6px;">マネは交渉・金額提示・最終判断は一切行わない</p>
+          <div><span class="oc-deadline">初回返信: 1営業日以内</span> <span class="oc-deadline">完了: 10営業日以内</span></div>
+        </div>
+      </div>
+      <div class="outcome-card danger">
+        <div class="oc-icon" style="background:#ffcdd2;">💰</div>
+        <div class="oc-body">
+          <h4>全額返金申請</h4>
+          <div class="oc-flow">
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">受付・初回返信</span>
+            <span class="oc-flow-arrow">→</span>
+            <span class="badge b-mgr" style="font-size:.62rem;">担当マネ</span>
+            <span class="oc-flow-step">達成条件5項目の事実確認</span>
+            <span class="oc-flow-arrow">→</span>
+            <span class="badge b-admin" style="font-size:.62rem;">運営</span>
+            <span class="oc-flow-step">最終判定・返金処理</span>
+          </div>
+          <p style="margin-top:6px;">返金可否の最終判断は運営が行う。マネは自己判断で返金可否を決定しない</p>
+          <div><span class="oc-deadline">初回返信: 1営業日以内</span> <span class="oc-deadline">完了: 10営業日以内</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(panel) { panel.classList.remove('active'); });
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
