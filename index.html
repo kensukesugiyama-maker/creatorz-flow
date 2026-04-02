@@ -23,6 +23,7 @@
     --teacher: #f57c00;
     --auto: #00897b;
     --student: #78909c;
+    --cs: #5e35b1;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -91,6 +92,7 @@
   .b-teacher { background: var(--teacher); }
   .b-auto { background: var(--auto); }
   .b-student { background: var(--student); }
+  .b-cs { background: var(--cs); }
 
   /* ========== SHARED: Timeline ========== */
   .timeline {
@@ -410,6 +412,21 @@
   .escalation-note h5 { font-size: .85rem; font-weight: 700; color: #c62828; margin-bottom: 6px; }
   .escalation-note p { font-size: .78rem; color: #555; line-height: 1.5; }
   .escalation-note ul { margin: 6px 0 0 16px; font-size: .78rem; color: #555; line-height: 1.6; }
+  .cs-policy {
+    background: linear-gradient(135deg, #ede7f6 0%, #e8eaf6 100%);
+    border: 1px solid #b39ddb; border-radius: 14px;
+    padding: 18px 20px 20px; margin-bottom: 8px;
+  }
+  .cs-policy > h4 {
+    font-size: .95rem; font-weight: 800; color: var(--navy);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .cs-policy ul { margin: 0; padding-left: 1.1rem; font-size: .78rem; color: var(--text); line-height: 1.75; }
+  .cs-policy li { margin-bottom: 6px; }
+  .cs-policy .cs-note {
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(94,53,177,.2);
+    font-size: .74rem; color: var(--text-light); line-height: 1.65;
+  }
 
   /* ========== FLOWCHART ========== */
   .fc-wrap {
@@ -623,7 +640,7 @@
         <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
         <div class="step-card">
           <h4>入会者限定の公式LINEに登録する</h4>
-          <p>担当マネージャーから登録URLをお送りします。こちらのLINEが今後の連絡窓口になりますので、まず登録をお願いします。</p>
+          <p>契約・お支払いの確認が取れ次第、担当マネージャーから登録URLをお送りします。こちらのLINEが今後の連絡窓口になりますので、まず登録をお願いします。案内で指示のとおり、登録後にチャットでお名前の送信もお願いします（運営側で本人確認のため）。</p>
           <span class="step-tool tool-line">公式LINE</span>
         </div>
       </div>
@@ -887,7 +904,12 @@
       <div class="role-card">
         <span class="badge b-sales">営業</span>
         <h5>営業</h5>
-        <p>面談・契約・支払いを担当。完了後マネージャーへ引き継ぎ</p>
+        <p>面談・契約・支払い・入会申込フォーム送付を担当。完了後CS／マネへ引き継ぎ</p>
+      </div>
+      <div class="role-card" style="border:2px solid var(--cs);">
+        <span class="badge b-cs">CS</span>
+        <h5>CS（バックオフィス）</h5>
+        <p><strong>時給稼働。</strong>予約・アポ振り分け、支払い確認、生徒管理シートの転記、クリエイターズ操作時の事務連携など</p>
       </div>
       <div class="role-card" style="border:2px solid var(--shift);">
         <span class="badge b-shift">シフトマネ</span>
@@ -923,6 +945,21 @@
   </div>
 
   <div class="section">
+    <div class="cs-policy">
+      <h4><span aria-hidden="true">📋</span> CSサポート体制（NEWME / クリエイターズ連携）</h4>
+      <ul>
+        <li><strong>契約前〜面談まで</strong>：事前顧客管理シートの整備、<strong>予約・アポの振り分け・予約管理</strong>。クリエイターズを触る時間・問い合わせ対応時間は<strong>時給</strong>で計上（受講前のやり取りも同様）。</li>
+        <li><strong>契約〜入会オンボーディング</strong>：<strong>支払い確認</strong>（クレカ／信販の各社管理画面・振込確認など。信販は承認まで<strong>1〜2日</strong>かかる場合あり）、<strong>入金・審査確認後</strong>に送る<strong>入会者向けLINE案内</strong>の前段、<strong>生徒管理シートへの転記</strong>（集客用LINEで友だち追加後、受講生から<strong>氏名をチャット送付</strong>→CSがシートに反映。面談日・在籍状況・受講開始予定・CS担当・LINE表示名など）。</li>
+        <li><strong>営業とのつなぎ目（最重要）</strong>：<strong>入会申込フォームは営業が送付</strong>（面談内で<strong>入金が確認できたタイミング</strong>が原則。審査待ち・遅延時はその場・都度でフォロー）。支払いと案内の<strong>つなぎ目が抜けないよう</strong>、引き継ぎ情報を必ず共有する。</li>
+        <li><strong>クラス分け</strong>：アンケート結果をもとに<strong>運営がクラスを決定</strong>しマネに共有（運用でCSが一次整理する場合あり）。</li>
+        <li><strong>移行期間（目安：約1ヶ月）</strong>：予約流入に合わせCSをアサインしつつ、並行して運営側で体制・手順を固める。必要なら<strong>一気通貫のチェックリスト</strong>で役割を固定する。</li>
+        <li><strong>契約日とサービス提供開始日</strong>：契約・入金のタイミングと、<strong>サービス提供開始日</strong>は一致しないことがあります（カリキュラム・期により異なる）。顔合わせ等の期限は「提供開始日から1週間以内」のルールに準拠します。</li>
+      </ul>
+      <p class="cs-note"><strong>補足：</strong>解約・返金・クレームの受付ルールは既存マニュアル・P4／P5のフローに従います。技術的には<strong>クリエイターズとスプレッドシート等の接続整備</strong>がボトルネックになりやすいので、シート項目と権限を先に揃えると運用が安定します。</p>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="section-head">
       <div class="section-title">全体の流れ</div>
     </div>
@@ -940,12 +977,17 @@
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--accent2);">🤝</div>
         <div class="tl-label">引き継ぎ</div>
-        <div class="tl-who"><span class="badge b-sales" style="font-size:.6rem;">営業</span><span style="font-size:.7rem;color:#aaa;margin:0 2px;">→</span><span class="badge b-mgr" style="font-size:.6rem;">マネ</span></div>
+        <div class="tl-who"><span class="badge b-sales" style="font-size:.6rem;">営業</span><span style="font-size:.7rem;color:#aaa;margin:0 2px;">→</span><span class="badge b-cs" style="font-size:.6rem;">CS</span><span class="badge b-mgr" style="font-size:.6rem;margin-left:2px;">マネ</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--cs);">✅</div>
+        <div class="tl-label">入金<br>確認</div>
+        <div class="tl-who"><span class="badge b-cs" style="font-size:.6rem;">CS</span></div>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--manager);">📱</div>
         <div class="tl-label">LINE<br>アンケ</div>
-        <div class="tl-who"><span class="badge b-mgr" style="font-size:.6rem;">マネ</span></div>
+        <div class="tl-who"><span class="badge b-mgr" style="font-size:.6rem;">マネ</span><span class="badge b-cs" style="font-size:.6rem;margin-left:2px;">CS</span><span class="badge b-auto" style="font-size:.6rem;margin-left:2px;">自動</span></div>
       </div>
       <div class="tl-item">
         <div class="tl-dot" style="background:var(--admin);">👥</div>
@@ -1005,17 +1047,25 @@
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S4</div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S4</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--sales),#ffab91);"></div></div>
         <div class="sl-card">
           <h4>支払い手続き</h4>
-          <p>顧客の状況に合わせて支払い方法を選択・手続きを完了させる（銀行振込 / クレジットカード / 信販 / 自社信販 / 後払い）</p>
+          <p>顧客の状況に合わせて支払い方法を選択・手続きを完了させる（銀行振込 / クレジットカード / 信販 / 自社信販 / 後払い）。<strong>面談中にその場で決済できれば</strong>、その場で次の案内まで進められることがあります。<strong>信販など審査付き</strong>は各社管理画面の承認に<strong>1〜2日</strong>かかる場合があり、面談時点では確定しないこともあります。遅延時は都度フォロー。</p>
+          <div class="sl-meta"><span class="badge b-sales">営業</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--sales);">S5</div></div>
+        <div class="sl-card">
+          <h4>入会申込フォームの送付</h4>
+          <p><strong>営業が送付する。</strong>原則として面談内で<strong>入金が確認できたタイミング</strong>で送る。審査待ちの場合は承認後に速やかに送付する。</p>
           <div class="sl-meta"><span class="badge b-sales">営業</span></div>
         </div>
       </div>
     </div>
     <div class="handoff">
-      <h4>🤝 営業 → マネージャーへ引き継ぎ</h4>
-      <p>契約・支払い完了後、マネージャーへ顧客情報を共有する</p>
+      <h4>🤝 営業 → CS／マネージャーへ引き継ぎ</h4>
+      <p>契約・支払い手続き・フォーム送付後、<strong>CS／マネージャーへ顧客情報を共有</strong>する。以降の<strong>支払い確認（入金・審査）</strong>は<strong>CS</strong>が先行して行い、<strong>確認完了後</strong>に入会者限定LINEの案内へ進む（つなぎ目が抜けないよう必ず共有）。</p>
     </div>
   </div>
 
@@ -1025,28 +1075,44 @@
       <div class="phase-num" style="background:var(--manager);">P2</div>
       <div>
         <h2>PHASE 2 - 入会後フェーズ</h2>
-        <div class="phase-desc">マネージャーが主担当</div>
+        <div class="phase-desc">マネージャーが主担当（オンボーディング前半は<strong>CS</strong>と連携）</div>
       </div>
     </div>
     <div class="step-list">
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M1</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--cs);">M1</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--cs),#b39ddb);"></div></div>
         <div class="sl-card">
-          <h4>入会者限定LINEの登録案内を送付</h4>
-          <p>引き継ぎ確認後、当日中に案内メッセージを送る</p>
-          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span><span class="sl-deadline">当日中</span></div>
+          <h4>支払い確認（入金・審査）</h4>
+          <p>引き継ぎ後、各システムで<strong>入金・審査状況</strong>を確認する（クレカ: SBP / 信販: 各社管理画面 / 振込: 入金確認）。<strong>この確認が完了してから</strong>入会者向けLINE案内に進む。</p>
+          <div class="sl-meta"><span class="badge b-cs">CS</span></div>
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M2</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M2</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
         <div class="sl-card">
-          <h4>入会者がLINEに登録</h4>
-          <p>案内に従い公式LINEへ登録</p>
+          <h4>入会者限定LINEの登録案内を送付</h4>
+          <p><strong>支払い確認完了後</strong>、案内メッセージを送る（当日中を目安）。<strong>担当マネ／CS</strong>は運用で固定してよい。</p>
+          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span><span class="badge b-cs">CS</span><span class="sl-deadline">当日中</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M3</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-card">
+          <h4>入会者がLINEに登録し、氏名を送信</h4>
+          <p>案内に従い<strong>集客用／案内どおりの公式LINE</strong>へ登録し、<strong>チャットで氏名を送る</strong>（運営側で誰の登録か紐づけるため）。</p>
           <div class="sl-meta"><span class="badge b-student">入会者</span></div>
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--auto);">M3</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--auto),#80cbc4);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--cs);">M4</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--cs),#b39ddb);"></div></div>
+        <div class="sl-card">
+          <h4>生徒管理シートへ転記</h4>
+          <p><strong>CS</strong>が、LINE表示名・氏名・面談日・在籍状況・受講開始予定・CS担当などを<strong>生徒管理シート</strong>に反映する（休会など期間情報も必要に応じて記載）。</p>
+          <div class="sl-meta"><span class="badge b-cs">CS</span></div>
+        </div>
+      </div>
+      <div class="sl-item">
+        <div class="sl-left"><div class="sl-id" style="background:var(--auto);">M5</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--auto),#80cbc4);"></div></div>
         <div class="sl-card">
           <h4>ウェルカムメッセージ + アンケートURL送付</h4>
           <p>LINE登録直後に自動配信。アンケートへの回答を依頼</p>
@@ -1054,34 +1120,26 @@
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M4</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M6</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
         <div class="sl-card">
           <h4>入会者がアンケートに回答</h4>
-          <p>目的・年齢・性別・MBTI・スキルレベルなどを回答</p>
+          <p>目的・年齢・性別・MBTI・スキルレベルなどを回答（初回面談内容と混ざらないよう、フォーム設計で分離することが望ましい）</p>
           <div class="sl-meta"><span class="badge b-student">入会者</span></div>
         </div>
       </div>
-      <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M5</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
-        <div class="sl-card">
-          <h4>支払い確認</h4>
-          <p>アンケート回答を確認後、各システムで入金・審査状況を確認（クレカ: SBP / 信販: 各社管理画面 / 振込: 入金確認）</p>
-          <div class="sl-meta"><span class="badge b-mgr">マネージャー</span></div>
-        </div>
-      </div>
     </div>
-    <div class="checkpoint">⚠ アンケート回答 + 支払い確認、両方が完了してから次へ進む</div>
+    <div class="checkpoint">⚠ <strong>支払い確認（M1）</strong>はLINE案内より先に完了していること。<strong>アンケート回答（M6）</strong>とシート整備を確認してからクラス割当へ進む</div>
     <div class="step-list" style="margin-top:12px;">
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--admin);">M6</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--admin),#ef9a9a);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--admin);">M7</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--admin),#ef9a9a);"></div></div>
         <div class="sl-card">
           <h4>アンケート結果確認・クラス割り当て</h4>
-          <p>運営がアンケートをもとにクラスを決定し、マネージャーに共有</p>
+          <p><strong>運営</strong>がアンケートをもとにクラスを決定し、マネージャーに共有（CSが一次整理する運用も可）</p>
           <div class="sl-meta"><span class="badge b-admin">運営</span></div>
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M7</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M8</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--manager),#90caf9);"></div></div>
         <div class="sl-card">
           <h4>Discord招待リンク送付</h4>
           <p>クラス確定後、速やかに招待リンクとクラスチャンネルを案内</p>
@@ -1089,7 +1147,7 @@
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M8</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--student);">M9</div><div class="sl-line" style="background:linear-gradient(to bottom,var(--student),#b0bec5);"></div></div>
         <div class="sl-card">
           <h4>入会者がDiscordに参加</h4>
           <p>招待リンクからDiscordに入り、担当クラスのチャンネルへ移動</p>
@@ -1097,7 +1155,7 @@
         </div>
       </div>
       <div class="sl-item">
-        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M9</div></div>
+        <div class="sl-left"><div class="sl-id" style="background:var(--manager);">M10</div></div>
         <div class="sl-card">
           <h4>クラス顔合わせの日程調整・実施</h4>
           <p>参加確認後、DiscordまたはLINEで日程を調整。サービス提供開始日から1週間以内に実施</p>
