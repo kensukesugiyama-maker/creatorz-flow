@@ -6,9 +6,24 @@
 
 - **本文・スタイル・タブ切り替え**はすべて **`index.html`** 1ファイルにあります（上部の `<style>` と、その下の HTML）。
 
-## ローカルでプレビュー
+## ローカルでプレビュー（ブラウザが自動で開く）
 
-プロジェクト直下で次のいずれか。
+`creatorz-flow` フォルダで:
+
+```bash
+chmod +x open-local.sh   # 初回だけ
+./open-local.sh
+```
+
+既定は **http://127.0.0.1:8765/** 。ポートを変える場合は `PORT=9000 ./open-local.sh`。
+
+**Cursor / VS Code**: コマンドパレット（`Cmd+Shift+P`）→ **Tasks: Run Task** → **CREATOR'ZZ flow: ブラウザでプレビュー**（ワークスペースが `Cursorくん` のとき）。
+
+`creatorz-flow` だけをフォルダとして開いている場合は **ブラウザでプレビュー（ローカルサーバー）** を選ぶ。
+
+---
+
+手動でサーバーだけ立てる場合:
 
 ```bash
 # Python 3
